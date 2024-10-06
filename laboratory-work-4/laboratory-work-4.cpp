@@ -2,7 +2,9 @@
 #include <vector>
 #include <iomanip>
 #include <string>
+#include <ctime>
 #include <map>
+
 
 using namespace std;
 
@@ -43,14 +45,20 @@ int main()
 		{0, 11},
 		{1, 12},
 		{2, 13},
-		{3, 14},
-		{4, 15}
 	};
 	map<int, string> markMap =
 	{	{0, "Неудовлетворительно"},
 		{1, "Удовлетворительно"},
 		{2, "Хорошо"},
 		{3, "Отлично"}
+	};
+	map<int, string> disciplineMap =
+	{
+		{0, "Математический анализ"},
+		{1, "Аналитическая геометрия"},
+		{2, "Алгоритмические языки"},
+		{3, "Теоретическая информатика"},
+		{4, "Физическая культура"}
 	};
 	setlocale(LC_ALL, "Russian");
 	int numberOfStudents, numberOfGroup, numberOfDiscipline;
