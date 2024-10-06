@@ -15,21 +15,22 @@ const int MAX_DISCIPLINE = 5;
 struct Discipline
 {
 	string name;
-	double mark;
+	string mark;
 };
 
 struct Student
 {
 	string fullName;
 	int groupNumber;
-	vector<Discipline> Disciplines;
-	int numberOfDisciplines;
+	vector<Discipline> disciplines;
 };
 
 
 int main()
 {
-	map<int, string> studentsMap =
+	setlocale(LC_ALL, "Russian");
+	srand(unsigned(time(0)));
+	map<int, string> studentMap =
 	{
 		{0, "Иванов Иван Иванович"}, {1, "Петров Петр Петрович"}, {2, "Сидоров Сергей Сергеевич"}, {3, "Кузнецов Николай Николаевич"},
 		{4, "Смирнов Алексей Алексеевич"}, {5, "Морозов Виктор Викторович"}, {6, "Киселев Андрей Андреевич"}, {7, "Волков Владимир Владимирович"},
@@ -60,7 +61,6 @@ int main()
 		{3, "Теоретическая информатика"},
 		{4, "Физическая культура"}
 	};
-	setlocale(LC_ALL, "Russian");
 	int numberOfStudents, numberOfGroup, numberOfDiscipline;
 	cout << "Введите количество студентов: ";
 	cin >> numberOfStudents;
@@ -72,5 +72,22 @@ int main()
 	{
 		cout << "Ошибка ввода!";
 		return 0;
+	}
+	vector<Student> students_vector;
+	for (int i = 0; i < numberOfStudents; i++)
+	{
+		Student student;
+		student.fullName = studentMap[rand() % 30];
+		student.groupNumber = groupMap[rand() % numberOfGroup];
+		vector<Discipline> disciplines_vector;
+		for (int j = 0; j < numberOfDiscipline; j++)
+		{
+			Discipline discipline;
+			discipline.name = disciplineMap[rand() % numberOfDiscipline];
+			discipline.mark = markMap[rand() % 4];
+			disciplines_vector.push_back(discipline);
+		}
+		student.disciplines = disciplines_vector;
+		students_vector.push_back(student);
 	}
 }
