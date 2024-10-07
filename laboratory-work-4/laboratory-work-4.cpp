@@ -30,6 +30,7 @@ int main()
 {
 	setlocale(LC_ALL, "Russian");
 	srand(unsigned(time(0)));
+
 	map<int, string> studentMap =
 	{
 		{0, "Иванов Иван Иванович"}, {1, "Петров Петр Петрович"}, {2, "Сидоров Сергей Сергеевич"}, {3, "Кузнецов Николай Николаевич"},
@@ -41,18 +42,21 @@ int main()
 		{24, "Поляков Аркадий Аркадьевич"}, {25, "Макаров Евгений Евгеньевич"}, {26, "Титов Кирилл Кириллович"}, {27, "Антонов Константин Константинович"},
 		{28, "Васильев Юрий Юрьевич"}, {29, "Николаев Виктор Викторович"}
 	};
+
 	map<int, int> groupMap =
 	{
 		{0, 11},
 		{1, 12},
 		{2, 13},
 	};
+
 	map<int, string> markMap =
 	{	{0, "Неудовлетворительно"},
 		{1, "Удовлетворительно"},
 		{2, "Хорошо"},
 		{3, "Отлично"}
 	};
+
 	map<int, string> disciplineMap =
 	{
 		{0, "Математический анализ"},
@@ -61,6 +65,7 @@ int main()
 		{3, "Теоретическая информатика"},
 		{4, "Физическая культура"}
 	};
+
 	int numberOfStudents, numberOfGroup, numberOfDiscipline;
 	cout << "Введите количество студентов: ";
 	cin >> numberOfStudents;
@@ -74,6 +79,7 @@ int main()
 		return 0;
 	}
 	cout << endl;
+
 	vector<Student> students_vector;
 	for (int i = 0; i < numberOfStudents; i++)
 	{
@@ -91,6 +97,7 @@ int main()
 		student.disciplines = disciplines_vector;
 		students_vector.push_back(student);
 	}
+
 	for (int i = 0; i < numberOfStudents; i++)
 	{
 		cout << "ФИО: " << students_vector[i].fullName << endl;
@@ -101,5 +108,17 @@ int main()
 			cout << j + 1 << ". " << students_vector[i].disciplines[j].name << " - " << students_vector[i].disciplines[j].mark << endl;
 		}
 		cout << endl;
+	}
+	
+	vector<vector<vector<int>>> matrix(numberOfDiscipline, vector<vector<int>>(numberOfGroup, vector<int>(2)));
+	for (int i = 0; i < numberOfDiscipline; i++)
+	{
+		for (int j = 0; j < numberOfGroup; j++)
+		{
+			for (int k = 0; k < 2; k++)
+			{
+				matrix[i][j][k] = 0;
+			}
+		}
 	}
 }
