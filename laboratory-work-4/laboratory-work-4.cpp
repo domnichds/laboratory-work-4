@@ -12,6 +12,19 @@ const int MAX_STUDENTS = 15;
 const int MAX_GROUP = 3;
 const int MAX_DISCIPLINE = 5;
 
+vector<double> findMax(const vector<vector<double>>& vec)
+{
+	int maIndex = 0;
+	for (int i = 0; i < vec.size(); i++)
+	{
+		if (vec[i][1] > vec[maIndex][1])
+		{
+			maIndex = i;
+		}
+	}
+	return vec[maIndex];
+}
+
 struct Discipline
 {
 	string name;
@@ -153,5 +166,23 @@ int main()
 		}
 		cout << "------------------------------------------------------------" << endl;
 	}
-	
+	vector<vector<vector<double>>> avg_matrix(numberOfDiscipline, vector<vector<double>>(numberOfGroup, vector<double>(2)));
+	for (int i = 0; i < numberOfDiscipline; i++)
+	{
+		for (int j = 0; j < numberOfGroup; j++)
+		{
+			avg_matrix[i][j][0] = j + 11;
+			avg_matrix[i][j][1] = (double)matrix[i][j][0] / matrix[i][j][1];
+		}
+	}
+	cout << endl << "Лучшие группы" << endl << endl;
+	cout << "------------------------------------------------------------" << endl;
+	for (int i = 0; i < numberOfDiscipline; i++)
+	{
+		cout << left << setw(30) << disciplineMap[i]
+			<< setw(10) << ("Группа " + to_string((int)findMax(avg_matrix[i])[0])) <<
+			setw(16) << right << fixed << setprecision(2) << "Балл " << findMax(avg_matrix[i])[1]
+			<< endl;
+	}
+	cout << "------------------------------------------------------------" << endl;
 }
