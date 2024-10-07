@@ -22,7 +22,7 @@ struct Student
 {
 	string fullName;
 	int groupNumber;
-	vector<Discipline> disciplines;
+	Discipline* disciplines;
 };
 
 
@@ -86,28 +86,27 @@ int main()
 		Student student;
 		student.fullName = studentMap[rand() % 30];
 		student.groupNumber = groupMap[rand() % numberOfGroup];
-		vector<Discipline> disciplines_vector;
+		student.disciplines = new Discipline[numberOfDiscipline];
 		for (int j = 0; j < numberOfDiscipline; j++)
 		{
 			Discipline discipline;
-			discipline.name = disciplineMap[rand() % numberOfDiscipline];
+			discipline.name = disciplineMap[j];
 			discipline.mark = markMap[rand() % 4];
-			disciplines_vector.push_back(discipline);
+			student.disciplines[j] = { discipline.name, discipline.mark };
 		}
-		student.disciplines = disciplines_vector;
 		students_vector.push_back(student);
 	}
-
+	cout << "------------------------------------------------------------" << endl;
 	for (int i = 0; i < numberOfStudents; i++)
 	{
-		cout << "ФИО: " << students_vector[i].fullName << endl;
+		cout << setw(14) << left << "ФИО: " << students_vector[i].fullName << endl;
 		cout << "Номер группы: " << students_vector[i].groupNumber << endl;
-		cout << "Дисциплины: " << endl;
+		cout << setw(14) << left << "Дисциплины: " << endl << endl;
 		for (int j = 0; j < numberOfDiscipline; j++)
 		{
-			cout << j + 1 << ". " << students_vector[i].disciplines[j].name << " - " << students_vector[i].disciplines[j].mark << endl;
+			cout << setw(35) << left << students_vector[i].disciplines[j].name << setw(25) << right << students_vector[i].disciplines[j].mark << endl;
 		}
-		cout << endl;
+		cout << "------------------------------------------------------------" << endl;
 	}
 	
 	vector<vector<vector<int>>> matrix(numberOfDiscipline, vector<vector<int>>(numberOfGroup, vector<int>(2)));
@@ -121,4 +120,38 @@ int main()
 			}
 		}
 	}
+	
+	for (int i = 0; i < numberOfDiscipline; i++)
+	{
+		for (int j = 0; j < numberOfGroup; j++)
+		{
+			for (int k = 0; k < numberOfStudents; k++)
+			{
+				int score;
+				string getMark = students_vector[k].disciplines[i].mark;
+				if (getMark == "Неудовлетворительно") { score = 2; }
+				else if (getMark == "Удовлетворительно") { score = 3; }
+				else if (getMark == "Хорошо") { score = 4; }
+				else if (getMark == "Отлично") { score = 5; }
+				if ((students_vector[k].disciplines[i].name == disciplineMap[i]) && (students_vector[k].groupNumber == groupMap[j]))
+				{
+					matrix[i][j][0] += score;
+					matrix[i][j][1] += 1;
+				}
+			}
+		}
+	}
+
+	cout << endl << "Средний балл по группам" << endl << endl;
+	cout << "------------------------------------------------------------" << endl;
+	for (int i = 0; i < numberOfGroup; i++)
+	{
+		cout << "Группа " << groupMap[i] << endl;
+		for (int j = 0; j < numberOfDiscipline; j++)
+		{
+			cout << setw(35) << left << disciplineMap[j] << setw(25) << right << (double)matrix[j][i][0] / matrix[j][i][1] << endl;
+		}
+		cout << "------------------------------------------------------------" << endl;
+	}
+	
 }
