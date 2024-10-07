@@ -73,6 +73,7 @@ int main()
 		cout << "Ошибка ввода!";
 		return 0;
 	}
+	cout << endl;
 	vector<Student> students_vector;
 	for (int i = 0; i < numberOfStudents; i++)
 	{
@@ -89,5 +90,16 @@ int main()
 		}
 		student.disciplines = disciplines_vector;
 		students_vector.push_back(student);
+	}
+	for (int i = 0; i < numberOfStudents; i++)
+	{
+		cout << "ФИО: " << students_vector[i].fullName << endl;
+		cout << "Номер группы: " << students_vector[i].groupNumber << endl;
+		cout << "Дисциплины: " << endl;
+		for (int j = 0; j < numberOfDiscipline; j++)
+		{
+			cout << j + 1 << ". " << students_vector[i].disciplines[j].name << " - " << students_vector[i].disciplines[j].mark << endl;
+		}
+		cout << endl;
 	}
 }
