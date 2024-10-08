@@ -41,7 +41,6 @@ struct Student
 
 int main()
 {
-	system("chcp 1251");
 	setlocale(LC_ALL, "Russian");
 	srand(unsigned(time(0)));
 
